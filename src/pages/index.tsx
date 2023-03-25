@@ -12,20 +12,24 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { useAccount } from "wagmi";
+import { useBalance } from "wagmi";
+import { useToast } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
-
 import Profile from "../components/Profile";
 import TransactionData from "../components/TransactionData";
 
 function Page() {
-  const { isConnected } = useAccount();
+  const toast = useToast();
+
+  const { isConnected, address } = useAccount();
+  const { data } = useBalance({ address: address });
   return (
     <>
       <Box>
         <Navbar />
       </Box>
 
-      <Container>
+      <Box px={4} maxW="1200px" w={{ base: "100%", md: "75" }} mx="auto">
         <Flex
           h="calc(100vh - 4rem)"
           flexDirection={{ base: "column", md: "column" }}
@@ -38,7 +42,6 @@ function Page() {
             transform={{
               base: "scale(1)",
               md: "scale(1.1)",
-              lg: "scale(1.15)",
             }}
             bg={"gray.200"}
             borderRadius="3xl"
@@ -69,6 +72,15 @@ function Page() {
               </FormControl>
               <Box display={"flex"} justifyContent="center">
                 <Button
+                  onClick={() =>
+                    toast({
+                      title: "Transaction sent.",
+                      description: `to: ${address}`,
+                      status: "success",
+                      duration: 9000,
+                      isClosable: true,
+                    })
+                  }
                   bg="white"
                   transition={"all ease 100ms"}
                   fontWeight="medium"
@@ -88,10 +100,9 @@ function Page() {
               </Box>
             </form>
           </Box>
-
           <TransactionData />
         </Flex>
-      </Container>
+      </Box>
     </>
   );
 }

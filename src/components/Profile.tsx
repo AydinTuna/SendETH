@@ -14,9 +14,13 @@ export default function Profile() {
 
   if (isConnected) {
     return (
-      <Box w="100%" textAlign="end" marginTop={4}>
-        <Text>Account balance: {data?.formatted}</Text>
+      <Box w="100%" justifySelf="flex-end" marginTop={4}>
+        <Text as="b" fontSize="xl" color="blackAlpha.800">
+          Account balance: {data?.formatted} SEP
+        </Text>
       </Box>
     );
   }
+
+  return <Text>Disconnected</Text>;
 }
