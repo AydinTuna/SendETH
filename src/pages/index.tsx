@@ -1,4 +1,3 @@
-import { ConnectKitButton } from "connectkit";
 import {
   Box,
   Container,
@@ -17,10 +16,10 @@ import { useToast } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import Profile from "../components/Profile";
 import TransactionData from "../components/TransactionData";
+import SendTransaction from "../components/SendTransaction";
 
 function Page() {
   const toast = useToast();
-
   const { isConnected, address } = useAccount();
   const { data } = useBalance({ address: address });
   return (
@@ -31,7 +30,6 @@ function Page() {
 
       <Box px={4} maxW="1200px" w={{ base: "100%", md: "75" }} mx="auto">
         <Flex
-          h="calc(100vh - 4rem)"
           flexDirection={{ base: "column", md: "column" }}
           justifyContent="center"
           alignItems={{ base: "center", md: "center" }}
@@ -49,56 +47,7 @@ function Page() {
             marginBottom={"2"}
             p="12"
           >
-            <form>
-              <FormControl>
-                <Stack spacing={3} marginBottom="12">
-                  <Input
-                    type="text"
-                    variant={"filled"}
-                    placeholder="Recipient"
-                    my={2}
-                    size={"lg"}
-                    required
-                  />
-                  <Input
-                    type="number"
-                    variant={"filled"}
-                    placeholder="Amount"
-                    my={2}
-                    size={"lg"}
-                    required
-                  />
-                </Stack>
-              </FormControl>
-              <Box display={"flex"} justifyContent="center">
-                <Button
-                  onClick={() =>
-                    toast({
-                      title: "Transaction sent.",
-                      description: `to: ${address}`,
-                      status: "success",
-                      duration: 9000,
-                      isClosable: true,
-                    })
-                  }
-                  bg="white"
-                  transition={"all ease 100ms"}
-                  fontWeight="medium"
-                  borderRadius="8px"
-                  w="140px"
-                  boxShadow="-4px 4px 0px #000000,inset 0 0 0 2px #000000;"
-                  type="submit"
-                  _hover={{
-                    bg: "#f3ede8",
-                  }}
-                  _active={{
-                    boxShadow: "0 0 0 0 #000000,inset 0 0 0 2px #000000;",
-                  }}
-                >
-                  Send
-                </Button>
-              </Box>
-            </form>
+            <SendTransaction />
           </Box>
           <TransactionData />
         </Flex>
