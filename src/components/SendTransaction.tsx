@@ -19,7 +19,6 @@ import {
 } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { utils } from "ethers";
-import { TransactionMessage } from "./TransactionMessage";
 
 function SendTransaction() {
   const toast = useToast();
@@ -34,33 +33,34 @@ function SendTransaction() {
       value: debouncedAmount ? utils.parseEther(debouncedAmount) : undefined,
     },
   });
+
   const { data, sendTransaction } = useSendTransaction(config);
   const { isLoading, isSuccess } = useWaitForTransaction({
     hash: data?.hash,
   });
 
+  if (data?.hash && !isLoading && isSuccess) {
+    toast({
+      title: "Transaction sent.",
+      description: `to: ${address}`,
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+    });
+  } else if (!data?.hash && isLoading) {
+    toast({
+      title: "Transaction failed.",
+      description: `to: ${address}`,
+      status: "error",
+      duration: 9000,
+      isClosable: true,
+    });
+  }
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
         sendTransaction?.();
-        if (isSuccess && isLoading) {
-          toast({
-            title: "Transaction sent.",
-            description: `to: ${address}`,
-            status: "success",
-            duration: 9000,
-            isClosable: true,
-          });
-        } else {
-          toast({
-            title: "Transaction failed.",
-            description: `to: ${address}`,
-            status: "error",
-            duration: 9000,
-            isClosable: true,
-          });
-        }
       }}
     >
       <FormControl>
