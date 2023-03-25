@@ -71,7 +71,7 @@ function SendTransaction() {
             variant={"filled"}
             placeholder="Recipient"
             my={2}
-            size={"lg"}
+            size={"md"}
             value={to}
             required
           />
@@ -81,7 +81,7 @@ function SendTransaction() {
             variant={"filled"}
             placeholder="Amount"
             my={2}
-            size={"lg"}
+            size={"md"}
             value={amount}
             required
           />
@@ -101,6 +101,11 @@ function SendTransaction() {
             }}
             _active={{
               boxShadow: "0 0 0 0 #000000,inset 0 0 0 2px #000000;",
+            }}
+            _disabled={{
+              opacity: "0.3",
+              boxShadow: "-4px 4px 0px #000000,inset 0 0 0 2px #000000;",
+              cursor: "not-allowed",
             }}
             isDisabled={isLoading || !sendTransaction || !to || !amount}
             isLoading={isLoading && isConnected}

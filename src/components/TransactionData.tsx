@@ -36,7 +36,7 @@ export default function TransactionData() {
   }, []);
 
   return (
-    <TableContainer marginTop={12}>
+    <TableContainer marginTop={12} maxH="50vh" overflowY="auto">
       <Table variant="striped" colorScheme="teal">
         <TableCaption>Transaction datas</TableCaption>
         <Thead>

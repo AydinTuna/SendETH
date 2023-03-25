@@ -45,7 +45,8 @@ function Page() {
             borderRadius="3xl"
             marginTop={"12"}
             marginBottom={"2"}
-            p="12"
+            p="6"
+            w={{ base: "100%", md: "75%" }}
           >
             <SendTransaction />
           </Box>
