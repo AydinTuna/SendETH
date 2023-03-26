@@ -1,5 +1,3 @@
-import { useBalance } from "wagmi";
-import { ReactNode } from "react";
 import { ConnectKitButton } from "connectkit";
 import { Box, Flex, Link, useColorModeValue, Heading } from "@chakra-ui/react";
 

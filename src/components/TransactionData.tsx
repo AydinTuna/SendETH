@@ -1,3 +1,4 @@
+import { useAccount } from "wagmi";
 import { useState, useEffect } from "react";
 import {
   Table,
@@ -9,13 +10,12 @@ import {
   Td,
   TableCaption,
   TableContainer,
-  Box,
-  Text,
 } from "@chakra-ui/react";
-import { env } from "process";
 
 export default function TransactionData() {
-  const SEPOLIA_WALLET_ADDRESS = "0x8e4a6CaB4012739Daf4E047D04c47afE50C86B19";
+  const { address, isDisconnected } = useAccount();
+  const SEPOLIA_WALLET_ADDRESS = address;
+
   const [transactions, setTransactions] = useState<any[]>([]);
   const axios = require("axios");
 
@@ -23,9 +23,7 @@ export default function TransactionData() {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://api-sepolia.etherscan.io/api?module=account&action=txlist&address=${SEPOLIA_WALLET_ADDRESS}&startblock=0&endblock=99999999&page=1&offset=100&sort=desc&apikey=${
-            process.env.ETHERSCAN_API_KEY?.split(" ")[0]
-          }`
+          `https://api-sepolia.etherscan.io/api?module=account&action=txlist&address=${SEPOLIA_WALLET_ADDRESS}&startblock=0&endblock=99999999&page=1&offset=100&sort=desc&apikey=${process.env.NEXT_PUBLIC_ETHERSCAN_API_KEY}`
         );
         setTransactions(response.data.result);
       } catch (error) {
@@ -49,18 +47,19 @@ export default function TransactionData() {
         </Thead>
         <Tbody>
           <>
-            {transactions.map((tx) => {
-              return (
-                <Tr key={tx.hash}>
-                  <Td>
-                    {new Date(tx.timeStamp * 1000).toLocaleString("tr-TR")}
-                  </Td>
-                  <Td>{tx.from}</Td>
-                  <Td>{tx.to}</Td>
-                  <Td>{tx.value / 1e18} ETH</Td>
-                </Tr>
-              );
-            })}
+            {!isDisconnected &&
+              transactions.map((tx) => {
+                return (
+                  <Tr key={tx.hash}>
+                    <Td>
+                      {new Date(tx.timeStamp * 1000).toLocaleString("tr-TR")}
+                    </Td>
+                    <Td>{tx.from}</Td>
+                    <Td>{tx.to}</Td>
+                    <Td>{tx.value / 1e18} ETH</Td>
+                  </Tr>
+                );
+              })}
           </>
         </Tbody>
         <Tfoot>

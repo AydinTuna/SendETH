@@ -1,16 +1,16 @@
-import { Box, Button, Flex, Icon, Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { WarningIcon } from "@chakra-ui/icons";
 import { useAccount, useBalance, useNetwork } from "wagmi";
 import { useState } from "react";
 
 export default function Profile() {
-  const { address, connector, isConnected } = useAccount();
+  const { address, isConnected } = useAccount();
   const { data } = useBalance({ address: address });
   const { chain } = useNetwork();
   const [accountBalance, setAccountBalance] = useState(data?.formatted);
 
-  const balance = useBalance({
-    address: "0x8e4a6CaB4012739Daf4E047D04c47afE50C86B19",
+  useBalance({
+    address: address,
     onSuccess(data) {
       setAccountBalance(data.formatted);
     },

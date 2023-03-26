@@ -1,12 +1,11 @@
 import * as React from "react";
 import { useToast } from "@chakra-ui/react";
-import { Address, useAccount } from "wagmi";
+import { useAccount } from "wagmi";
 import { useDebounce } from "use-debounce";
 import {
   usePrepareSendTransaction,
   useSendTransaction,
   useWaitForTransaction,
-  useTransaction,
 } from "wagmi";
 import {
   Box,

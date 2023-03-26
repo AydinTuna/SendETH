@@ -1,15 +1,4 @@
-import {
-  Box,
-  Container,
-  Flex,
-  Heading,
-  Input,
-  Stack,
-  VStack,
-  FormControl,
-  Button,
-  Textarea,
-} from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import { useAccount } from "wagmi";
 import { useBalance } from "wagmi";
 import { useToast } from "@chakra-ui/react";
@@ -22,6 +11,7 @@ function Page() {
   const toast = useToast();
   const { isConnected, address } = useAccount();
   const { data } = useBalance({ address: address });
+
   return (
     <>
       <Box>
