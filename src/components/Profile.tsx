@@ -1,5 +1,5 @@
 import { Box, Button, Flex, Icon, Text } from "@chakra-ui/react";
-import { InfoIcon } from "@chakra-ui/icons";
+import { WarningIcon } from "@chakra-ui/icons";
 import { useAccount, useBalance, useNetwork } from "wagmi";
 import { useState } from "react";
 
@@ -36,7 +36,7 @@ export default function Profile() {
           fontWeight="medium"
           color={chain?.testnet ? "red.400" : "green.400"}
         >
-          <InfoIcon /> {chain?.testnet ? "Testnet" : "Mainnet"}
+          <WarningIcon /> {chain?.testnet ? "Testnet" : "Mainnet"}
         </Text>
       </Box>
     );

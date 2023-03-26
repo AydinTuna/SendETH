@@ -37,16 +37,12 @@ function Page() {
           {isConnected && <Profile />}
 
           <Box
-            transform={{
-              base: "scale(1)",
-              md: "scale(1.1)",
-            }}
             bg={"gray.200"}
             borderRadius="3xl"
             marginTop={"12"}
             marginBottom={"2"}
             p="6"
-            w={{ base: "100%", md: "75%" }}
+            w={{ base: "100%", md: "75%", lg: "100%" }}
           >
             <SendTransaction />
           </Box>
